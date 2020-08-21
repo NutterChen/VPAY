@@ -46,7 +46,7 @@ function vmq_alipay_link($params) {
        $accumulate = 0.01;
        file_put_contents($initialvaluefile,str_replace($initialvalue,$initialvalue+$accumulate,file_get_contents($initialvaluefile)));
        $initialvaluenew = file_get_contents($initialvaluefile);
-       if ( $initialvaluenew = 0.3 ) {
+       if ( $initialvaluenew > 0.06 ) {
            file_put_contents($initialvaluefile,str_replace($initialvaluenew,0,file_get_contents($initialvaluefile)));
            $initialvaluenew = file_get_contents($initialvaluefile);
         };
