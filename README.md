@@ -24,9 +24,7 @@ pcntl_signal_dispatch
 
 ### 监控APP配置
 
-请下载Monitor APP文件夹内的app安装在安卓手机上，初次启用请给予APP相关权限
-
-若APP无法工作，请去下方地址下载最新版
+请下载Monitor APP文件夹内的app安装在安卓手机上，若APP无法工作，请去下方地址下载最新版
 Apk下载地址:[https://github.com/szvone/vmqApk/releases](https://github.com/szvone/vmqApk/releases)
 
 打开V免签App后，初次启用请给予APP相关权限，选择手动配置,在弹出的提示框中填写'[服务端IP或域名]:20001/[Config.php里设置的AppKey]',如 xxxx.com:20001/testkey
