@@ -41,15 +41,16 @@ function vmq_wechat_link($params) {
 	}
     if($_REQUEST['vpaysub'] == 'yes'){
 	   $RandomString = chr(rand(97, 122)).chr(rand(97, 122)).chr(rand(97, 122)).chr(rand(97, 122)).chr(rand(97, 122));
-       if ($params['amount'] < 10) {
-        $params['amount'] = $params['amount'] + rand(1,20)/100;
-        }
-        elseif ($params['amount'] < 100) {
-         $params['amount'] = $params['amount'] + rand(1,40)/100;
-        }
-        else {
-         $params['amount'] = $params['amount'] + date('s')/100;
+       $initialvaluefile = $_SERVER['DOCUMENT_ROOT'].'/modules/gateways/vmqno.txt';
+       $initialvalue = file_get_contents($initialvaluefile);
+       $accumulate = 0.01;
+       file_put_contents($initialvaluefile,str_replace($initialvalue,$initialvalue+$accumulate,file_get_contents($initialvaluefile)));
+       $initialvaluenew = file_get_contents($initialvaluefile);
+       if ( $initialvaluenew = 0.3 ) {
+           file_put_contents($initialvaluefile,str_replace($initialvaluenew,0,file_get_contents($initialvaluefile)));
+           $initialvaluenew = file_get_contents($initialvaluefile);
         };
+       $params['amount'] = $params['amount'] + $initialvaluenew;
        $PayID = $RandomString.'|'.$params['invoiceid'];
 	   $PaySign = md5('wechat'.$PayID.$params['amount'].$params['systemurl'].'/modules/gateways/vmq_wechat/callback.php'.trim($params['appsk']));
 	   $GetInfo = json_decode(vmq_wechat_curl_post(trim($params['appurl']).'/createorder',array("appkey"=>trim($params['appsk']),"payid"=>$PayID,"type"=>'wechat',"price"=>$params['amount'],"sign"=>$PaySign,"notifyurl"=>$params['systemurl'].'/modules/gateways/vmq_wechat/callback.php')),true);

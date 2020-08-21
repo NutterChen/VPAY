@@ -37,7 +37,7 @@ Apk下载地址:[https://github.com/szvone/vmqApk/releases](https://github.com/s
 
 Whmcs支付插件位于WhmcsPay文件夹内,上传到modules/gateways并在Whmcs后台启用配置即可
 
-WHMCS插件依赖于支付金额的小数位来区分相同金额的订单，小数位由随机数或创建订单时的秒数加上订单金额产生，目前尚不完善
+WHMCS插件依赖于支付金额的小数位来区分相同金额的订单，小数位由累加形成
 
 ## 感谢
 
