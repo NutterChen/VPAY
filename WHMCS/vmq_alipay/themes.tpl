@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="Content-Language" content="zh-cn">
@@ -22,13 +23,17 @@
     <div class="mod-ct">
         <div class="order">
         </div>
+		<p style="text-align:right;">
+        <font size="3">账单 #{$invoiceid}</font>
+        <span style="float:left;color:#FF0000"><font size="3">请勿刷新此页面</font></span>
+        </p>
         <div class="amount" id="money">￥0.00</div>
         <div class="qrcode-img-wrapper" data-role="qrPayImgWrapper">
             <div data-role="qrPayImg" class="qrcode-img-area">
                 <div class="ui-loading qrcode-loading" data-role="qrPayImgLoading" style="display: none;">加载中</div>
                 <div style="position: relative;display: inline-block;">
                     <img id='show_qrcode' alt="加载中..." src="" width="210" height="210" style="display: block;">
-                    <!-- <img onclick="$('#use').hide()" id="use" src="modules/gateways/vmq_alipay/img/use_1.png" style="position: absolute;top: 50%;left: 50%;width:32px;height:32px;margin-left: -21px;margin-top: -21px"> -->
+                    <img onclick="$('#use').hide()" id="use" src="modules/gateways/vmq_alipay/img/use_1.png" style="position: absolute;top: 50%;left: 50%;width:32px;height:32px;margin-left: -21px;margin-top: -21px">
                 </div>
             </div>
 
@@ -84,12 +89,10 @@
     var user_data ={$userdata}
 	show_Qrcode(user_data);
 </script>
-<!--
 <script>
     setTimeout(function () {
         $('#use').hide() //2秒后隐藏中间那LOGO
     }, user_data.logoShowTime || 2000);
 </script>
--->
 </body>
 </html>

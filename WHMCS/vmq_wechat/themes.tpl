@@ -28,7 +28,7 @@
                 <div class="ui-loading qrcode-loading" data-role="qrPayImgLoading" style="display: none;">加载中</div>
                 <div style="position: relative;display: inline-block;">
                     <img id='show_qrcode' alt="加载中..." src="" width="210" height="210" style="display: block;">
-                    <!-- <img onclick="$('#use').hide()" id="use" src="modules/gateways/vmq_wechat/img/use_3.png" style="position: absolute;top: 50%;left: 50%;width:32px;height:32px;margin-left: -21px;margin-top: -21px"> -->
+                    <img onclick="$('#use').hide()" id="use" src="modules/gateways/vmq_wechat/img/use_3.png" style="position: absolute;top: 50%;left: 50%;width:32px;height:32px;margin-left: -21px;margin-top: -21px">
                 </div>
             </div>
 
@@ -84,12 +84,10 @@
     var user_data ={$userdata}
 	show_Qrcode(user_data);
 </script>
-<!--
 <script>
     setTimeout(function () {
         $('#use').hide() //2秒后隐藏中间那LOGO
     }, user_data.logoShowTime || 2000);
 </script>
--->
 </body>
 </html>

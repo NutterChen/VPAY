@@ -2,7 +2,7 @@
 use Workerman\Worker;
 use think\Db;
 require_once __DIR__ . '/vendor/autoload.php';
-function curl_get_https($url,$data){ 
+function curl_post_https($url,$data){ 
     $url = preg_replace('/([^:])[\/\\\\]{2,}/','$1/',$url);
 	$urlfields = "";
 	foreach($data as $k => $v ){
@@ -17,12 +17,12 @@ function curl_get_https($url,$data){
     return $tmpInfo; // 返回数据
 }
 $worker = new Worker();
-$worker->count = 6;
+$worker->count = 1;
 $worker->name = 'Pay Watch';
 $worker->onWorkerStart = function($worker)
 {
 	Db::setConfig(['type'=> 'sqlite','database'=> __DIR__.'/database.db','prefix'=> '','debug'=> true]);
-    \Workerman\Lib\Timer::add(40, function(){
+    \Workerman\Lib\Timer::add(30, function(){
 		$data = Db::table('payinfo')->where('status','waitnotify')->select();
 		include __DIR__.'/config.php';
         foreach ($data as $item) {
@@ -30,7 +30,7 @@ $worker->onWorkerStart = function($worker)
 			if($data2 == 'waitnotify'){
 				Db::table('payinfo')->where('payid',$item['payid'])->update(["status" => 'donotify']);
 				$PaySign = md5($item['type'].$item['payid'].$item['orderid'].$item['price'].$AppKey);
-				$NotifyReturn = curl_get_https($item["notifyurl"],array('type' => $item['type'],'price' => $item['price'],'orderid' => $item['orderid'],'payid' => $item['payid'],'sign' => $PaySign));
+				$NotifyReturn = curl_post_https($item["notifyurl"],array('type' => $item['type'],'price' => $item['price'],'orderid' => $item['orderid'],'payid' => $item['payid'],'sign' => $PaySign));
 				if(trim($NotifyReturn) == 'success'){
 					//异步请求成功
 					Db::table('payinfo')->where('id',$item['id'])->delete();
