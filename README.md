@@ -33,7 +33,13 @@ Apk下载地址:[https://github.com/szvone/vmqApk/releases](https://github.com/s
 
 ## WHMCS插件安装
 
-Whmcs支付插件位于WhmcsPay文件夹内,上传到modules/gateways并在Whmcs后台启用配置即可
+注意，用宝塔面板建站的朋友，千万不要打开宝塔面板网站设置的“强制https”
+
+这会使你的用户退出登陆后无法在登陆进用户中心，以及导致本插件无法正常回调
+
+你可以在宝塔面板网站设置里申请https证书后，再在whmcs管理的常规设置里再http后面加上s，这才是whmcs开启https的正确方法
+
+Whmcs支付插件位于WHMCS文件夹内,上传到modules/gateways并在Whmcs后台启用配置即可
 
 WHMCS插件依赖于支付金额的小数位来区分相同金额的订单，小数位由累加形成
 

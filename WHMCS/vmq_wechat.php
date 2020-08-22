@@ -50,6 +50,7 @@ function vmq_wechat_link($params) {
            file_put_contents($initialvaluefile,str_replace($initialvaluenew,0,file_get_contents($initialvaluefile)));
            $initialvaluenew = file_get_contents($initialvaluefile);
         };
+       $params['amount'] = $params['amount'] + $initialvaluenew;
 	   $PayID = $RandomString.'|'.$params['invoiceid'];
 	   $PaySign = md5('wechat'.$PayID.$params['amount'].$params['systemurl'].'/modules/gateways/vmq_wechat/callback.php'.trim($params['appsk']));
 	   $GetInfo = json_decode(vmq_wechat_curl_post(trim($params['appurl']),array("appkey"=>trim($params['appsk']),"payid"=>$PayID,"type"=>'wechat',"price"=>$params['amount'],"sign"=>$PaySign,"notifyurl"=>$params['systemurl'].'/modules/gateways/vmq_wechat/callback.php')),true);
