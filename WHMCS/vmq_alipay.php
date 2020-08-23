@@ -12,7 +12,7 @@ function vmq_alipay_config() {
     $configarray = array(
         "FriendlyName"  => array(
             "Type"  => "System",
-            "Value" => "V免签(支付宝)"
+            "Value" => "VPAY(支付宝)"
         ),
         "appurl"  => array(
             "FriendlyName" => "支付接口地址",
@@ -29,6 +29,18 @@ function vmq_alipay_config() {
             "FriendlyName" => "支付二维码(只保留二维码即可)",
             "Type"         => "text",
             "Size"         => "32",
+        ),
+        "alipay_userid"  => array(
+        "FriendlyName" => "支付宝userid",
+        "Type"         => "text",
+        "Size"         => "32",
+        "Default"         => "2088112119481680",
+        ),
+        "alipay_memo"  => array(
+        "FriendlyName" => "支付宝转账备注",
+        "Type"         => "text",
+        "Size"         => "32",
+        "Default"         => "购买饮料",
         )
     );
 
@@ -46,11 +58,13 @@ function vmq_alipay_link($params) {
        $accumulate = 0.01;
        file_put_contents($initialvaluefile,str_replace($initialvalue,$initialvalue+$accumulate,file_get_contents($initialvaluefile)));
        $initialvaluenew = file_get_contents($initialvaluefile);
-       if ( $initialvaluenew > 0.07 ) {
+       if ( $initialvaluenew >= 0.05 ) {
            file_put_contents($initialvaluefile,str_replace($initialvaluenew,0,file_get_contents($initialvaluefile)));
            $initialvaluenew = file_get_contents($initialvaluefile);
         };
        $params['amount'] = $params['amount'] + $initialvaluenew;
+	   $alipay_userid = $params['alipay_userid'];
+	   $alipay_memo = $params['alipay_memo'];
 	   $PayID = $RandomString.'|'.$params['invoiceid'];
 	   $PaySign = md5('alipay'.$PayID.$params['amount'].$params['systemurl'].'/modules/gateways/vmq_alipay/callback.php'.trim($params['appsk']));
 	   $GetInfo = json_decode(vmq_alipay_curl_post(trim($params['appurl']),array("appkey"=>trim($params['appsk']),"payid"=>$PayID,"type"=>'alipay',"price"=>$params['amount'],"sign"=>$PaySign,"notifyurl"=>$params['systemurl'].'/modules/gateways/vmq_alipay/callback.php')),true);
@@ -69,7 +83,7 @@ function vmq_alipay_link($params) {
 	   $userdata['order_id'] = $GetInfo['data']['orderid'];
 	   $userdata['outTime'] = ($GetInfo['data']['timeout']) * 60;
 	   $userdata['logoShowTime'] = 2;
-	   exit(vmq_wechat_makehtml(json_encode($userdata)));
+	   exit(vmq_alipay_makehtml(json_encode($userdata),$params['alipay_userid'],$params['amount'],$params['alipay_memo'],$params['systemurl']));
 	}
     if(stristr($_SERVER['PHP_SELF'],'viewinvoice')){
 		return '<form method="post" id=\'vpaysub\'><input type="hidden" name="vpaysub" value="yes"></form><button type="button" class="btn btn-danger btn-block" onclick="document.forms[\'vpaysub\'].submit()">使用支付宝支付</button>';
@@ -79,10 +93,14 @@ function vmq_alipay_link($params) {
 
 }
 
-if(!function_exists("vmq_wechat_makehtml")){
-    function vmq_wechat_makehtml($userdata){
-        $skin_raw = file_get_contents(__DIR__ . "/vmq_wechat/themes.tpl");
+if(!function_exists("vmq_alipay_makehtml")){
+    function vmq_alipay_makehtml($userdata,$alipay_userid,$amount,$alipay_memo,$systemurl){
+        $skin_raw = file_get_contents(__DIR__ . "/vmq_alipay/themes.tpl");
         $skin_raw = str_replace('{$userdata}',$userdata,$skin_raw);
+        $skin_raw = str_replace('{$alipay_userid}',$alipay_userid,$skin_raw);
+        $skin_raw = str_replace('{$amount}',$amount,$skin_raw);
+        $skin_raw = str_replace('{$alipay_memo}',$alipay_memo,$skin_raw);
+        $skin_raw = str_replace('{$systemurl}',$systemurl,$skin_raw);
         return $skin_raw;
     }
     }

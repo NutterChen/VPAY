@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="Content-Language" content="zh-cn">
@@ -11,7 +10,23 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>扫码支付</title>
     <link href="modules/gateways/vmq_alipay/css/pay.css" rel="stylesheet" media="screen">
+<style>
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
 
+.button1 {font-size: 10px;}
+
+</style>
 </head>
 
 <body>
@@ -23,10 +38,6 @@
     <div class="mod-ct">
         <div class="order">
         </div>
-		<p style="text-align:right;">
-        <font size="3">账单 #{$invoiceid}</font>
-        <span style="float:left;color:#FF0000"><font size="3">请勿刷新此页面</font></span>
-        </p>
         <div class="amount" id="money">￥0.00</div>
         <div class="qrcode-img-wrapper" data-role="qrPayImgWrapper">
             <div data-role="qrPayImg" class="qrcode-img-area">
@@ -37,6 +48,11 @@
                 </div>
             </div>
 
+<a href="alipays://platformapi/startapp?saId=20000067&amp;url={$systemurl}modules%2fgateways%2fvmq_alipay%2falipayautotrans%2f%3fuserid%3d{$alipay_userid}%26amount%3d{$amount}%26memo%3d{$alipay_memo}"target="_blank">
+<button class="button button1">手机点我支付</button>
+
+
+</a> 
 
         </div>
         <div class="time-item" id="msg">
@@ -78,7 +94,7 @@
 
 </div>
 <div class="copyRight">
-    <p>技术支持：<a href="http://www.myserver.group/" target="_blank">MyServerGroup</a></p>
+    <p>技术支持：<a href="https://www.bank.cat/" target="_blank">BanK.cat</a></p>
 </div>
 
 <script src="modules/gateways/vmq_alipay/js/jquery-1.10.2.min.js"></script>

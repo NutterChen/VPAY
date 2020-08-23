@@ -73,7 +73,7 @@
 
 </div>
 <div class="copyRight">
-    <p>技术支持：<a href="http://www.myserver.group/" target="_blank">MyServerGroup</a></p>
+    <p>技术支持：<a href="https://www.bank.cat/" target="_blank">BanK.cat</a></p>
 </div>
 
 <script src="modules/gateways/vmq_wechat/js/jquery-1.10.2.min.js"></script>

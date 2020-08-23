@@ -39,14 +39,14 @@ try {
 qrcode_timeout = function () { //二维码超时则停止显示二维码
     $("#show_qrcode").attr("src", '');
     $("#show_qrcode").attr("alt", '二维码失效');
-    $("#msg h1").html("支付超时,请重新提交订单.如已支付,请等待支付到帐通知"); //过期提醒信息
+    $("#msg h1").html("支付超时,请刷新页面获取新二维码.如已支付,请等待支付到帐通知"); //过期提醒信息
 	//clearInterval(paid_timer);
 }
 show_Qrcode = function (data) {
     if (!data)return;
     if (data.qrcode)$("#show_qrcode").attr("src", data.qrcode);
     if (data.money) $("#money").html('￥' + data.money);
-    var tps='到帐可能会有几分钟延迟 <br><span style="color:red">为了您及时到账 请务必付款'+data.money+'元</span><br>';
+    var tps='到帐可能会有几分钟延迟<br><span style="color:red">二维码过期前请勿刷新此页面</span><br><span style="color:red">为了您及时到账 请务必付款'+data.money+'元</span><br>';
 	invoiceid = data.invoiceid;
     $("#msg h1").html(tps);
     show_desc(data);
