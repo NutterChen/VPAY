@@ -3,8 +3,8 @@ use WHMCS\Database\Capsule;
 
 function vmq_alipay_MetaData() {
     return array(
-        'DisplayName' => 'V免签(支付宝)',
-        'APIVersion' => '1.1',
+        'DisplayName' => 'VPAY(支付宝)',
+        'APIVersion' => '1.2',
     );
 }
 
