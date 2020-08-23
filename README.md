@@ -43,6 +43,10 @@ Whmcs支付插件位于WHMCS文件夹内,上传到modules/gateways并在Whmcs后
 
 WHMCS插件依赖于支付金额的小数位来区分相同金额的订单，小数位由累加形成
 
+请在whmcs后台设置alipay userid，此ID可以在登陆网页版支付宝个人中心后查看源代码
+
+搜索“userid”，后面的数字就是支付宝userid
+
 ## 感谢
 
 https://github.com/szvone and 
