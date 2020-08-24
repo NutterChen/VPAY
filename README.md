@@ -1,6 +1,6 @@
 # VPAY
 
-V免签whmcs修改版，基于Workerman服务端，基于Workerman3.X版本，与Workerman4.X版本不兼容，支持Whmcs对接
+V免签whmcs修改版，基于Workerman服务端，基于Workerman3.X版本，与Workerman4.X版本不兼容
 
 ## 使用说明
 
